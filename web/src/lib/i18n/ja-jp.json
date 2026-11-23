@@ -252,7 +252,7 @@
     }
   },
   "platform": {
-    "name": "端末に戻る",
+    "name": "AHNU:CSC.Platform",
     "subject": "戻り先のアドレスに基づいて世界を構築します",
     "cookiePolicy": "私たちはあなたを追跡するためにどの Cookie も使用していません。",
     "updated": "端末に戻るには非互換の更新が行われました。このページは更新を適用するために再読み込みされました。再度ログインする必要がありますのでご注意ください。",
@@ -2087,9 +2087,7 @@
     "commandNotFound": "未知のコマンド: {{command}}"
   },
   "about": {
-    "contact": "プラットフォームソフトウェアサポート",
-    "donate": "寄付",
-    "source": "サポート"
+    "groupChat": "グループチャット"
   },
   "docs": {
     "title": "開発者ドキュメント",
@@ -2099,6 +2097,15 @@
   },
   "magic": {
     "about": {
+      "projectDescription": "安徽師範大学コンピュータ・情報学院（人工知能学院）の学内 CTF サイバーセキュリティ競技プラットフォーム",
+      "projectContributors": "AHNU:CSC.Platform の貢献者",
+      "acknowledgments": {
+        "title": "謝辞",
+        "description": "AHNU:CSC.Platform は Ret2Shell を基に開発されています。Ret2Shell の開発チームとすべての貢献者に感謝します。",
+        "developers": "Ret2Shell の開発者",
+        "contributors": "Ret2Shell の貢献者",
+        "dependencies": "オープンソースプロジェクトとサードパーティライブラリ"
+      },
       "license": {
         "commercial": "商用サービス可",
         "copyleft": "強いコピーレフト",
@@ -2107,7 +2114,6 @@
         "noUserFees": "有料アクセス層なし",
         "view": "ライセンス全文を見る"
       },
-      "thanks": "私の作品を使用していただきありがとうございます",
       "title": "について"
     },
     "sakana": {

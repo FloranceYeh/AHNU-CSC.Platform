@@ -1,6 +1,5 @@
 import LogoAnimate from "@assets/animates/logo-animate";
-import { Reverier } from "@assets/animates/Reverier";
-import thanksForUsingMySoftware from "@assets/imgs/thanks-for-using-my-software.svg";
+import ret2shellLogo from "@assets/ret2shell-logo.svg";
 import { Title } from "@storage/header";
 import { platformStore } from "@storage/platform";
 import { fullTheme, t } from "@storage/theme";
@@ -8,9 +7,11 @@ import Divider from "@widgets/divider";
 import Link from "@widgets/link";
 import Tag from "@widgets/tag";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-solid";
-import { Show } from "solid-js";
 
 export default function () {
+  const version = () => platformStore.version || "UNKNOWN";
+  const isDevelopment = () => version().includes("*");
+
   return (
     <>
       <Title page={t("magic.about.title")} route="/magic/about" />
@@ -27,30 +28,67 @@ export default function () {
               class="relative w-full h-full print:h-auto print:overflow-auto"
               defer
             >
-              <div class=" w-full flex flex-col items-center justify-center min-h-full">
+              <div class="w-full flex flex-col items-center justify-center min-h-full py-6">
                 <div class="max-w-3xl w-full flex flex-col items-center justify-center space-y-6">
-                  <div class="flex flex-row space-x-6 items-center">
-                    <LogoAnimate width={80} height={80} />
-                    <div class="flex flex-col space-y-1">
-                      <h2 class="text-3xl font-bold flex flex-row">
-                        <span class="text-primary">R</span>
-                        <span class="opacity-80">et</span>
-                        <span class="opacity-60">&nbsp;2&nbsp;</span>
-                        <span class="text-error">S</span>
-                        <span class="opacity-80">hell</span>
-                      </h2>
-                      <p class="text-base font-bold opacity-60 space-x-2">
-                        <Show
-                          when={(platformStore.version || "UNKNOWN").includes("*")}
-                          fallback={<span class="text-primary">REL</span>}
+                  <div class="flex min-h-20 w-full max-w-xl items-center gap-6">
+                    <LogoAnimate class="shrink-0" width={80} height={80} aria-hidden="true" />
+                    <div class="min-w-0 space-y-1 wrap-anywhere">
+                      <h1 class="text-3xl font-bold">
+                        <a
+                          class="inline-flex max-w-full items-center gap-2 hover:underline"
+                          href="https://github.com/FloranceYeh/AHNU-CSC.Platform"
+                          target="_blank"
+                          rel="noreferrer"
                         >
-                          <span class="text-warning">DEV</span>
-                        </Show>
-                        <span>{(platformStore.version || "UNKNOWN").replace("*", "")}</span>
-                      </p>
+                          <span class="min-w-0">AHNU:CSC.Platform</span>
+                          <span class="shrink-0 icon-[fluent--open-20-regular] w-4 h-4" aria-hidden="true" />
+                        </a>
+                      </h1>
+                      <p class="text-sm opacity-80">{t("magic.about.projectDescription")}</p>
                     </div>
                   </div>
+                  <section class="w-full flex flex-col items-center space-y-3">
+                    <h2 class="text-xl font-bold">{t("magic.about.projectContributors")}</h2>
+                    <div class="flex flex-wrap justify-center">
+                      <Tag level="success" class="m-1">
+                        <a href="https://github.com/FloranceYeh" target="_blank" rel="noreferrer">
+                          Florance
+                        </a>
+                      </Tag>
+                      <Tag level="success" class="m-1">
+                        <a href="https://github.com/Gong-Yie" target="_blank" rel="noreferrer">
+                          工一阵
+                        </a>
+                      </Tag>
+                    </div>
+                  </section>
                   <Divider class="w-full" />
+                  <section class="w-full flex flex-col items-center space-y-3">
+                    <h2 class="text-xl font-bold">{t("magic.about.acknowledgments.title")}</h2>
+                    <div class="flex min-h-20 w-full max-w-xl items-center gap-6">
+                      <img class="shrink-0" src={ret2shellLogo} alt="" width={80} height={80} />
+                      <div class="min-w-0 space-y-1 wrap-anywhere">
+                        <h3 class="text-3xl font-bold">
+                          <a
+                            class="inline-flex items-center gap-2 hover:underline"
+                            href="https://github.com/ret2shell/ret2shell"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Ret2Shell
+                            <span class="shrink-0 icon-[fluent--open-20-regular] w-4 h-4" aria-hidden="true" />
+                          </a>
+                        </h3>
+                        <p class="text-sm opacity-80">{t("magic.about.acknowledgments.description")}</p>
+                        <div class="flex flex-wrap gap-x-2 text-base font-bold opacity-60">
+                          <span class={isDevelopment() ? "text-warning" : "text-primary"}>
+                            {isDevelopment() ? "DEV" : "REL"}
+                          </span>
+                          <span>{version().replace("*", "")}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
                   <div class="w-full flex flex-col items-center space-y-3">
                     <h3 class="font-bold">{t("license.title")}</h3>
                     <p class="max-w-2xl text-center text-sm opacity-60">{t("magic.about.license.description")}</p>
@@ -73,7 +111,7 @@ export default function () {
                       <span>{t("magic.about.license.view")}</span>
                     </Link>
                   </div>
-                  <h3 class="font-bold">Developers</h3>
+                  <h3 class="font-bold">{t("magic.about.acknowledgments.developers")}</h3>
                   <div class="flex flex-row flex-wrap justify-center">
                     <Tag level="success" class="m-1">
                       <a href="https://github.com/Reverier-Xu" target="_blank" rel="noreferrer">
@@ -81,7 +119,7 @@ export default function () {
                       </a>
                     </Tag>
                   </div>
-                  <h3 class="font-bold">Contributors</h3>
+                  <h3 class="font-bold">{t("magic.about.acknowledgments.contributors")}</h3>
                   <div class="flex flex-row flex-wrap justify-center">
                     <Tag level="info" class="m-1">
                       <a href="https://github.com/cdcq" target="_blank" rel="noreferrer">
@@ -164,7 +202,7 @@ export default function () {
                       </a>
                     </Tag>
                   </div>
-                  <h3 class="font-bold">Opensource projects & 3rd libraries</h3>
+                  <h3 class="font-bold">{t("magic.about.acknowledgments.dependencies")}</h3>
                   <div class="flex flex-row flex-wrap justify-center">
                     <Tag level="warning" class="m-1">
                       <a href="https://github.com/rust-lang/rust" target="_blank" rel="noreferrer">
@@ -215,29 +253,6 @@ export default function () {
                 </div>
               </div>
             </OverlayScrollbarsComponent>
-          </section>
-          <section class="h-full min-h-full snap-center flex flex-col items-center justify-center relative space-y-8 p-3">
-            <div class="flex flex-row items-center space-x-6">
-              <Reverier width={128} height={128} class="" />
-              <h2 class="flex flex-col space-y-2 justify-center">
-                <span class="text-3xl font-bold">Powered by Reverier</span>
-                <span class="opacity-60 self-end">with caffeine, a cat named 'dog', and love.</span>
-              </h2>
-            </div>
-            <p class="font-bold opacity-60 max-w-3xl">
-              Idealism is that you will never receive something back,
-              <br />
-              but nonetheless still decide to give.
-              <span class="text-primary animate-ping">_</span>
-            </p>
-          </section>
-          <section class="h-full min-h-full snap-center flex flex-col items-center justify-center relative p-3">
-            <img
-              src={thanksForUsingMySoftware}
-              alt="Thanks for using my software"
-              class="w-full max-w-3xl object-contain"
-            />
-            <p class="opacity-60">{t("magic.about.thanks")}</p>
           </section>
         </div>
       </div>

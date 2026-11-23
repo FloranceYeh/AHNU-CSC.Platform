@@ -252,7 +252,7 @@
     }
   },
   "platform": {
-    "name": "Ret 2 Shell",
+    "name": "AHNU:CSC.Platform",
     "subject": "Return-oriented programming built the world",
     "cookiePolicy": "We do not use any cookies to track you.",
     "updated": "Ret 2 Shell has done an incompatible update and this page has been reloaded to apply the update. Please note that you need to log in again.",
@@ -2087,9 +2087,7 @@
     "commandNotFound": "Unknown command: {{command}}"
   },
   "about": {
-    "contact": "Platform support",
-    "donate": "Donate",
-    "source": "Support"
+    "groupChat": "Group chat"
   },
   "docs": {
     "title": "Developer Documentation",
@@ -2099,6 +2097,15 @@
   },
   "magic": {
     "about": {
+      "projectDescription": "Campus CTF cybersecurity competition platform for the School of Computer and Information (School of Artificial Intelligence), Anhui Normal University",
+      "projectContributors": "AHNU:CSC.Platform contributors",
+      "acknowledgments": {
+        "title": "Acknowledgments",
+        "description": "AHNU:CSC.Platform is based on Ret2Shell. Thanks to the Ret2Shell team and everyone who has contributed.",
+        "developers": "Ret2Shell developers",
+        "contributors": "Ret2Shell contributors",
+        "dependencies": "Open-source projects and third-party libraries"
+      },
       "license": {
         "commercial": "Commercial services allowed",
         "copyleft": "Strong copyleft",
@@ -2107,7 +2114,6 @@
         "noUserFees": "No paid access tiers",
         "view": "Read full license"
       },
-      "thanks": "Thank you for using my software",
       "title": "About"
     },
     "sakana": {

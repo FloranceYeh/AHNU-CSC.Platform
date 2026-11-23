@@ -1,7 +1,7 @@
 import { useBindWithOAuthMutation, useLoginWithOAuthMutation, useOAuthProviders } from "@api/account";
 import LogoAnimate from "@assets/animates/logo-animate";
 // import xdsecMascotHappy from "@assets/imgs/xdsec-mascot-happy.webp";
-import logo from "@assets/logo-gray.svg";
+import logo from "@assets/logo.svg";
 import { mediaPath } from "@lib/utils/media";
 import { useLocation, useNavigate, useSearchParams } from "@solidjs/router";
 import { accountStore } from "@storage/account";
@@ -9,7 +9,7 @@ import { Title } from "@storage/header";
 import { t } from "@storage/theme";
 import LoadingTips from "@widgets/loading-tips";
 import clsx from "clsx";
-import { createEffect, createSignal } from "solid-js";
+import { createEffect, createMemo, createSignal } from "solid-js";
 
 export default function () {
   const [animate, setAnimate] = createSignal(false);
@@ -29,12 +29,9 @@ export default function () {
     }
   });
 
-  const brand = () => {
-    const service = searchParams.service;
-    const avatar = oauthProviders.data?.find((s) => s.provider === service)?.avatar;
-    if (avatar) return mediaPath(avatar);
-    return logo;
-  };
+  const providerAvatar = createMemo(
+    () => oauthProviders.data?.find((provider) => provider.provider === searchParams.service)?.avatar
+  );
 
   const loginWithOAuthMutation = useLoginWithOAuthMutation({
     onSuccess: (resp) => {
@@ -84,9 +81,13 @@ export default function () {
           />
           <span class={clsx("text-2xl font-bold transition-all duration-700", !animate() && "opacity-0")}>+</span>
           <img
-            src={brand()}
+            src={providerAvatar() ? mediaPath(providerAvatar()) : logo}
             alt="Brand"
-            class={clsx("w-32 h-32 transition-all duration-700", !animate() && "-translate-x-16 opacity-0")}
+            class={clsx(
+              "w-32 h-32 transition-all duration-700",
+              !animate() && "-translate-x-16 opacity-0",
+              !providerAvatar() && "grayscale"
+            )}
           />
         </div>
         <LoadingTips />

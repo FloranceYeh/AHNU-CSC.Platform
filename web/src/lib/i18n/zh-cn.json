@@ -252,7 +252,7 @@
     }
   },
   "platform": {
-    "name": "回归终端",
+    "name": "AHNU:CSC.Platform",
     "subject": "基于返回地址构建世界",
     "cookiePolicy": "我们不使用任何 Cookie 来追踪你。",
     "updated": "回归终端进行了一项非兼容更新，已重新加载此页面应用更新。请注意你需要重新登录。",
@@ -2087,9 +2087,7 @@
     "commandNotFound": "未知命令：{{command}}"
   },
   "about": {
-    "contact": "平台软件支持",
-    "donate": "捐助",
-    "source": "支持"
+    "groupChat": "交流群聊"
   },
   "docs": {
     "title": "开发者文档",
@@ -2099,6 +2097,15 @@
   },
   "magic": {
     "about": {
+      "projectDescription": "安徽师范大学计算机与信息学院（人工智能学院）CTF 校园网络安全竞赛平台",
+      "projectContributors": "AHNU:CSC.Platform 贡献者",
+      "acknowledgments": {
+        "title": "鸣谢",
+        "description": "AHNU:CSC.Platform 基于 Ret2Shell 开发，感谢 Ret2Shell 团队与所有贡献者。",
+        "developers": "Ret2Shell 开发者",
+        "contributors": "Ret2Shell 贡献者",
+        "dependencies": "开源项目与第三方库"
+      },
       "license": {
         "commercial": "允许商业服务",
         "copyleft": "强 Copyleft",
@@ -2107,7 +2114,6 @@
         "noUserFees": "禁止付费访问分层",
         "view": "查看完整许可证"
       },
-      "thanks": "感谢使用我的作品",
       "title": "关于"
     },
     "sakana": {

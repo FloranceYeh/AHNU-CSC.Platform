@@ -252,7 +252,7 @@
     }
   },
   "platform": {
-    "name": "迴歸終端",
+    "name": "AHNU:CSC.Platform",
     "subject": "基於返回地址構建世界",
     "cookiePolicy": "我們不使用任何 Cookie 來追蹤你。",
     "updated": "迴歸終端進行了一項非兼容更新，已重新加載此頁面應用更新。請注意你需要重新登錄。",
@@ -2087,9 +2087,7 @@
     "commandNotFound": "未知命令：{{command}}"
   },
   "about": {
-    "contact": "平臺軟件支持",
-    "donate": "捐助",
-    "source": "支持"
+    "groupChat": "交流群聊"
   },
   "docs": {
     "title": "開發者文檔",
@@ -2099,6 +2097,15 @@
   },
   "magic": {
     "about": {
+      "projectDescription": "安徽師範大學計算機與資訊學院（人工智慧學院）CTF 校園網路安全競賽平台",
+      "projectContributors": "AHNU:CSC.Platform 貢獻者",
+      "acknowledgments": {
+        "title": "致謝",
+        "description": "AHNU:CSC.Platform 基於 Ret2Shell 開發，感謝 Ret2Shell 團隊與所有貢獻者。",
+        "developers": "Ret2Shell 開發者",
+        "contributors": "Ret2Shell 貢獻者",
+        "dependencies": "開放原始碼專案與第三方函式庫"
+      },
       "license": {
         "commercial": "允許商業服務",
         "copyleft": "強 Copyleft",
@@ -2107,7 +2114,6 @@
         "noUserFees": "禁止付費訪問分層",
         "view": "查看完整許可證"
       },
-      "thanks": "感謝使用我的作品",
       "title": "關於"
     },
     "sakana": {
