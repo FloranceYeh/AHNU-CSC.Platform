@@ -8,22 +8,8 @@ import Card from "@widgets/card";
 import Link from "@widgets/link";
 import Popover from "@widgets/popover";
 import { createEffect, onMount, Show } from "solid-js";
+import PlatformTitle from "./_blocks/platform-title";
 // import Calendar from "./calendar";
-
-function TitleBracket(props: { closing?: boolean }) {
-  return (
-    <svg class="inline-block h-[0.8em] w-[1ch] align-[-0.08em] text-primary" viewBox="0 0 16 24" aria-hidden="true">
-      <path
-        d={props.closing ? "M4 3H9Q11 3 11 5V19Q11 21 9 21H4" : "M12 3H7Q5 3 5 5V19Q5 21 7 21H12"}
-        fill="none"
-        stroke="currentColor"
-        stroke-width="4"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  );
-}
 
 export default function () {
   const platformInfo = usePlatformInfo();
@@ -56,19 +42,7 @@ export default function () {
       <div class="absolute h-full w-full overflow-scroll snap-mandatory snap-y">
         <section class="h-full min-h-full snap-center flex flex-col items-center justify-center relative">
           <div class="flex-1" />
-          <h1 class="max-w-full wrap-anywhere text-center text-3xl font-bold opacity-80">
-            &nbsp;&nbsp;
-            <span>
-              <TitleBracket />
-              &nbsp;{platformInfo.data?.name || t("platform.name")}&nbsp;
-              <TitleBracket closing />
-            </span>
-            &nbsp;
-            <span
-              class="inline-block h-[0.13em] w-[1ch] rounded-full bg-primary align-[-0.04em] motion-safe:animate-pulse"
-              aria-hidden="true"
-            />
-          </h1>
+          <PlatformTitle name={platformInfo.data?.name || t("platform.name")} />
           <a
             class="mt-8 max-w-[calc(100%-2rem)] wrap-anywhere rounded-lg text-center text-xl text-error outline-3 outline-offset-4 outline-transparent transition-colors hover:outline-error/50 focus-visible:outline-current"
             href={platformInfo.data?.subject_url || "#"}

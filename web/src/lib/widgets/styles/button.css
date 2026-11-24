@@ -1,4 +1,12 @@
 @layer components {
+  .site-nav .nav > .btn {
+    @apply rounded-xl;
+
+    &.btn-active {
+      @apply inset-ring-2 inset-ring-primary/55;
+    }
+  }
+
   .btn {
     @apply gap-2 font-bold no-underline duration-200 ease-out backdrop-blur-sm border border-transparent;
     @apply inline-flex shrink-0 cursor-pointer select-none items-center text-center;

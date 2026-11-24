@@ -3,7 +3,6 @@ import { useGame } from "@api/game";
 import { usePlatformInfo } from "@api/platform";
 import { useSelfTeam } from "@api/team";
 import LogoAnimate from "@assets/animates/logo-animate";
-import { unicodeStrDisplayLength } from "@lib/shell/pty";
 import { mediaPath } from "@lib/utils/media";
 import { HostType } from "@models/game";
 import { Permission } from "@models/user";
@@ -29,7 +28,7 @@ import TimeProgress from "@widgets/time-progress";
 import Timer from "@widgets/timer";
 import clsx from "clsx";
 import { DateTime } from "luxon";
-import { createEffect, createMemo, createSignal, Match, Show, Switch, untrack } from "solid-js";
+import { createMemo, createSignal, Match, Show, Switch } from "solid-js";
 import { Transition, TransitionGroup } from "solid-transition-group";
 import I18nBox, { I18nBoxContent } from "./i18n-box";
 import InstanceBox, { InstanceBoxContent } from "./instance-box";
@@ -57,24 +56,14 @@ function TitleLink() {
     return platformInfo.data?.name || t("platform.name");
   });
 
-  const [typedName, setTypedName] = createSignal("");
-  const [inClear, setInClear] = createSignal(false);
-
-  createEffect(() => {
-    if (name()) {
-      untrack(() => {
-        setInClear(true);
-        setTimeout(() => {
-          setTypedName(name());
-          setInClear(false);
-        }, 500);
-      });
-    }
-  });
-
   return (
-    <Link href={link()} ghost>
-      <div class="w-6 h-6">
+    <Link
+      href={link()}
+      ghost
+      title={name()}
+      class="min-w-0 shrink rounded-2xl px-3 inset-ring-2 inset-ring-primary/30 hover:inset-ring-primary/60 focus-visible:inset-ring-primary"
+    >
+      <div class="size-6 shrink-0">
         <Transition
           name="fade-group-flip"
           mode="outin"
@@ -86,24 +75,13 @@ function TitleLink() {
         >
           <Show
             when={game.data?.logo && location.pathname.startsWith("/games/")}
-            fallback={<LogoAnimate class="fade-group-flip" width={24} height={24} />}
+            fallback={<LogoAnimate class="fade-group-flip" width={24} height={24} aria-hidden="true" />}
           >
-            <img class="fade-group-flip" src={mediaPath(game.data?.logo)} width={24} height={24} alt="CTF" />
+            <img class="fade-group-flip" src={mediaPath(game.data?.logo)} width={24} height={24} alt="" />
           </Show>
         </Transition>
       </div>
-      <span />
-      <div
-        class={clsx(
-          "transition-all duration-500 text-nowrap overflow-hidden border-r-2",
-          inClear() ? "border-r-layer-content" : "border-r-transparent"
-        )}
-        style={{
-          "max-width": inClear() ? "0px" : `${unicodeStrDisplayLength(typedName()) / 2 + 0.5}rem`,
-        }}
-      >
-        {typedName()}
-      </div>
+      <span class="min-w-0 max-w-60 truncate">{name()}</span>
     </Link>
   );
 }
@@ -114,7 +92,7 @@ function GlobalNav(props: { size: "sm" | "md" }) {
   });
   const platformInfo = usePlatformInfo();
   return (
-    <div class="fade-group-dive-left flex flex-col lg:flex-row items-center space-y-2 lg:space-y-0 lg:space-x-2">
+    <div class="site-nav fade-group-dive-left flex flex-col lg:flex-row items-center space-y-2 lg:space-y-0 lg:space-x-2">
       <Show
         when={!platformInfo.data?.zen_game}
         fallback={
@@ -192,7 +170,7 @@ function GameNav(props: { size: "sm" | "md" }) {
   });
   const platformInfo = usePlatformInfo();
   return (
-    <div class="fade-group-dive-left flex flex-col lg:flex-row items-center space-y-2 lg:space-y-0 lg:space-x-2">
+    <div class="site-nav fade-group-dive-left flex flex-col lg:flex-row items-center space-y-2 lg:space-y-0 lg:space-x-2">
       <li class="nav whitespace-nowrap w-full lg:w-auto">
         <Link
           class="w-full"

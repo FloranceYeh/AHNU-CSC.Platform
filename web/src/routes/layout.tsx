@@ -9,8 +9,9 @@ import { frontendCompatVersion, platformStore, setPlatformStore } from "@storage
 import { t } from "@storage/theme";
 import { addToast, removeToast } from "@storage/toast";
 import { HTTPError } from "ky";
-import { createEffect, createMemo, createSignal, type JSX, onMount, Show, untrack } from "solid-js";
+import { createEffect, createSignal, type JSX, onCleanup, onMount, Show, untrack } from "solid-js";
 import { Transition } from "solid-transition-group";
+import PlatformTitle from "./_blocks/platform-title";
 import TitleBar from "./_blocks/title-bar";
 import Toasts from "./_blocks/toasts";
 
@@ -39,10 +40,28 @@ function checkCookiePolicy() {
 
 export default function (props: { children?: JSX.Element }) {
   const platformInfo = usePlatformInfo();
-  const platformName = createMemo(() => `\xa0\xa0[\xa0${platformInfo.data?.name || t("platform.name")}\xa0]\xa0`);
-  const [platformTyped, setPlatformTyped] = createSignal("");
-  const [hideAnimation, setHideAnimation] = createSignal(false);
-  let showAnimation = useLocation().pathname === "/" && useSearchParams()[0].event === undefined;
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const isHome = () => location.pathname === "/";
+  const platformName = () => platformInfo.data?.name || t("platform.name") || "";
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const [typedLength, setTypedLength] = createSignal(0);
+  const [showIntro, setShowIntro] = createSignal(
+    isHome() && searchParams.event === undefined && !reducedMotion.matches
+  );
+  let introTimer: ReturnType<typeof setTimeout> | undefined;
+  let typingTimer: ReturnType<typeof setInterval> | undefined;
+  onCleanup(() => {
+    clearTimeout(introTimer);
+    clearInterval(typingTimer);
+  });
+  createEffect(() => {
+    if (!isHome() || searchParams.event !== undefined || platformInfo.data?.zen_game) {
+      setShowIntro(false);
+      clearTimeout(introTimer);
+      clearInterval(typingTimer);
+    }
+  });
   const navigate = useNavigate();
   function checkEmailVerification() {
     if (accountStore.token && !accountStore.permissions.includes(Permission.Verified)) {
@@ -82,25 +101,19 @@ export default function (props: { children?: JSX.Element }) {
       }
       setPlatformStore({ backend_online: false });
     }
-    showAnimation = showAnimation && !platformInfo.data?.zen_game;
-
     setTimeout(checkCookiePolicy, 1000);
 
-    if (showAnimation) {
-      setTimeout(() => {
-        const typeTimer = setInterval(() => {
-          if (platformTyped().length < platformName().length) {
-            setPlatformTyped(platformName().slice(0, platformTyped().length + 1));
+    if (showIntro()) {
+      introTimer = setTimeout(() => {
+        typingTimer = setInterval(() => {
+          if (typedLength() < [...platformName()].length) {
+            setTypedLength((length) => length + 1);
           } else {
-            clearInterval(typeTimer);
-            setTimeout(() => {
-              setHideAnimation(true);
-            }, 500);
+            clearInterval(typingTimer);
+            introTimer = setTimeout(() => setShowIntro(false), 350);
           }
-        }, 100);
-      }, 1000);
-    } else {
-      setHideAnimation(true);
+        }, 65);
+      }, 300);
     }
   });
 
@@ -159,28 +172,27 @@ export default function (props: { children?: JSX.Element }) {
   return (
     <>
       <Title domain={platformInfo.data?.name ?? t("platform.name")} route="/" />
-      <Background />
+      <Background featured={isHome()} />
       <TitleBar />
       {props.children}
       <Toasts />
       <Transition
-        onExit={async (el: Element, done: () => void) => {
-          const a = el.animate([{ opacity: 1 }, { opacity: 0 }], {
-            duration: 300,
-          });
-          await a.finished;
-          done();
+        onExit={(el, done) => {
+          if (reducedMotion.matches || !isHome()) {
+            done();
+          } else {
+            const animation = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300 });
+            animation.onfinish = done;
+            animation.oncancel = done;
+          }
         }}
       >
-        <Show when={showAnimation && !hideAnimation()}>
-          <div class="fixed top-0 left-0 w-screen h-screen bg-layer z-50 print:hidden">
-            <Background />
+        <Show when={showIntro()}>
+          <div class="fixed inset-0 z-50 bg-layer print:hidden" aria-hidden="true">
+            <Background featured />
             <div class="w-full h-full flex flex-col items-center pt-16 pb-24">
               <div class="flex-1" />
-              <h1 class="text-3xl font-bold z-50 opacity-80">
-                {platformTyped()}
-                <span class="text-primary animate-ping">_</span>
-              </h1>
+              <PlatformTitle name={platformName()} typedName={[...platformName()].slice(0, typedLength()).join("")} />
               <div class="text-xl opacity-0 mt-8">&nbsp;</div>
               <div class="flex-1" />
             </div>

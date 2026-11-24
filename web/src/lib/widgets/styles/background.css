@@ -1,14 +1,113 @@
-.draw-line {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: draw-line 3s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+.site-background {
+  @apply pointer-events-none fixed inset-0 -z-10 overflow-hidden print:hidden;
+  --background-inset: clamp(1.25rem, 4vw, 4rem);
+  color: --alpha(var(--private-color-primary) / 8%);
 }
 
-@keyframes draw-line {
-  0% {
-    stroke-dashoffset: 1000;
+.site-background-featured {
+  --background-inset: clamp(0.625rem, 2.6vw, 2.5rem);
+  color: --alpha(var(--private-color-primary) / 20%);
+}
+
+.site-background-rectangle {
+  position: absolute;
+  aspect-ratio: 5 / 3;
+  border: 2px solid --alpha(var(--private-color-primary) / 9%);
+  border-radius: clamp(1.5rem, 3vw, 2.75rem);
+  background: --alpha(var(--private-color-primary) / 4%);
+}
+
+.site-background-rectangle-start {
+  top: 25%;
+  left: 9%;
+  width: clamp(7rem, 19vw, 17rem);
+  --float-offset: 0.75rem -0.9rem;
+  --float-duration: 5s;
+}
+
+.site-background-rectangle-end {
+  right: 15%;
+  bottom: 19%;
+  width: clamp(7rem, 17vw, 15rem);
+  --float-offset: -0.85rem -0.65rem;
+  --float-duration: 3s;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-background-rectangle {
+    animation: site-background-float var(--float-duration) ease-in-out infinite alternate;
   }
-  100% {
-    stroke-dashoffset: 0;
+}
+
+@keyframes site-background-float {
+  to {
+    translate: var(--float-offset);
+  }
+}
+
+.site-background-pattern {
+  position: absolute;
+  width: clamp(8rem, 29vw, 28rem);
+  stroke-width: clamp(4px, 0.48vw, 7px);
+}
+
+.site-background-detail {
+  display: none;
+  stroke: currentColor;
+  stroke-width: clamp(2px, 0.3vw, 4px);
+}
+
+.site-background-featured .site-background-detail {
+  display: block;
+}
+
+.site-background-secondary {
+  stroke: --alpha(var(--private-color-layer-content) / 13%);
+}
+
+.site-background-tint {
+  fill: --alpha(var(--private-color-primary) / 9%);
+  stroke: none;
+}
+
+.site-background-accent {
+  fill: --alpha(var(--private-color-warning) / 16%);
+  stroke: none;
+}
+
+.site-background-start {
+  bottom: var(--background-inset);
+  left: var(--background-inset);
+}
+
+.site-background-end {
+  top: calc(4rem + var(--background-inset));
+  right: var(--background-inset);
+  transform: rotate(180deg);
+}
+
+@media (width < 640px) {
+  .site-background-featured .site-background-pattern {
+    width: clamp(8rem, 38vw, 11rem);
+  }
+
+  .site-background-start {
+    bottom: calc(5rem + var(--background-inset));
+  }
+
+  .site-background-featured .site-background-start {
+    bottom: calc(5.5rem + var(--background-inset));
+  }
+
+  .site-background-rectangle-start {
+    top: 24%;
+  }
+
+  .site-background-rectangle-top {
+    display: none;
+  }
+
+  .site-background-rectangle-end {
+    bottom: 23%;
   }
 }
