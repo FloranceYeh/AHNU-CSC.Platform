@@ -1,5 +1,6 @@
 import { usePlatformInfo } from "@api/platform";
 import LogoAnimate from "@assets/animates/logo-animate";
+import managementLogo from "@assets/staff/management.svg";
 // import NarrowTips from "@blocks/narrow-tips";
 import { useNavigate, useSearchParams } from "@solidjs/router";
 import { t } from "@storage/theme";
@@ -7,9 +8,25 @@ import Button from "@widgets/button";
 import Card from "@widgets/card";
 import Link from "@widgets/link";
 import Popover from "@widgets/popover";
-import { createEffect, onMount, Show } from "solid-js";
+import { createEffect, type JSX, onMount, Show } from "solid-js";
 import PlatformTitle from "./_blocks/platform-title";
 // import Calendar from "./calendar";
+
+function FooterCardLink(props: { href: string; label: string; children: JSX.Element }) {
+  return (
+    <Card contentClass="p-2">
+      <Link
+        href={props.href}
+        ghost
+        justify="start"
+        class="flex h-auto! w-full flex-row items-center gap-4 py-1 pr-3 pl-2"
+      >
+        {props.children}
+        <h2 class="min-w-0 max-w-52 wrap-anywhere text-xl font-bold">{props.label}</h2>
+      </Link>
+    </Card>
+  );
+}
 
 export default function () {
   const platformInfo = usePlatformInfo();
@@ -79,16 +96,12 @@ export default function () {
                 btnContent={<span class="shrink-0 icon-[fluent--info-20-regular] w-5 h-5" />}
               >
                 <div class="w-max flex flex-col space-y-2">
-                  <Card contentClass="p-2">
-                    <Link ghost href="/magic/about" class="flex flex-row items-center h-auto! space-x-2 pl-2 pr-3 py-1">
-                      <LogoAnimate class="shrink-0" width={56} height={56} />
-                      <div class="flex min-w-0 flex-col">
-                        <h2 class="max-w-52 wrap-anywhere text-xl font-bold">
-                          {platformInfo.data?.name || t("platform.name")}
-                        </h2>
-                      </div>
-                    </Link>
-                  </Card>
+                  <FooterCardLink href="/magic/about" label={platformInfo.data?.name || t("platform.name")}>
+                    <LogoAnimate class="shrink-0" width={56} height={56} aria-hidden="true" />
+                  </FooterCardLink>
+                  <FooterCardLink href="/magic/staff" label={t("magic.staff.title")}>
+                    <img class="size-14 shrink-0 object-contain" src={managementLogo} alt="" width={56} height={56} />
+                  </FooterCardLink>
                   <Card contentClass="p-2">
                     <Link
                       href="https://qm.qq.com/q/lY9ap7YR68"

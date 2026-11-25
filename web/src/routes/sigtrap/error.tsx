@@ -1,6 +1,6 @@
 // import xdsecMascotCrying from "@assets/imgs/xdsec-mascot-crying.webp";
 // import xdsecMascotUnsee from "@assets/imgs/xdsec-mascot-unsee.webp";
-import platformAvatar from "@assets/imgs/rx.webp";
+import errAHNU from "@assets/imgs/error.png"
 import teapot from "@assets/imgs/teapot.svg";
 import { t } from "@storage/theme";
 import { Match, Show, Switch } from "solid-js";
@@ -31,7 +31,7 @@ export default function (props: { status?: number }) {
 
   return (
     <div class="flex-1 flex flex-col items-center justify-center space-y-8">
-      <Switch fallback={<img class="rounded-xl" src={platformAvatar} width={256} height={256} alt="TωT" />}>
+      <Switch fallback={<img class="rounded-xl" src={errAHNU} width={256} height={256} alt="TωT" />}>
         <Match when={props.status === 418}>
           <img class="rounded-xl" src={teapot} width={256} height={256} alt="TωT" />
         </Match>

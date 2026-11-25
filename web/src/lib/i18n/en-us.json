@@ -2116,6 +2116,18 @@
       },
       "title": "About"
     },
+    "staff": {
+      "groupLeader": "Team lead",
+      "coordination": "Overall coordination team",
+      "title": "Event team",
+      "managementTeam": "AHNU:CSC.1st administration team",
+      "tech": "Tech team",
+      "challenge": "Challenge authors",
+      "operations": "On-site operations",
+      "publicity": "Publicity",
+      "support": "Support",
+      "bot": "Bot"
+    },
     "sakana": {
       "title": "Sakana~",
       "illustration": "Illustration",

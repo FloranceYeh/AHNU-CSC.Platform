@@ -2116,6 +2116,18 @@
       },
       "title": "關於"
     },
+    "staff": {
+      "groupLeader": "組長",
+      "coordination": "總協調組",
+      "title": "賽事團隊",
+      "managementTeam": "AHNU:CSC.1st 管理組",
+      "tech": "技術組",
+      "challenge": "命題組",
+      "operations": "現場保障組",
+      "publicity": "宣傳組",
+      "support": "客服",
+      "bot": "機器人"
+    },
     "sakana": {
       "title": "Sakana~",
       "illustration": "插畫",

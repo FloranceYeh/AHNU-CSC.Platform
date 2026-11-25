@@ -2116,6 +2116,18 @@
       },
       "title": "について"
     },
+    "staff": {
+      "groupLeader": "チームリーダー",
+      "coordination": "総合調整チーム",
+      "title": "大会運営チーム",
+      "managementTeam": "AHNU:CSC.1st 運営チーム",
+      "tech": "技術チーム",
+      "challenge": "作問チーム",
+      "operations": "会場運営チーム",
+      "publicity": "広報チーム",
+      "support": "サポート",
+      "bot": "ボット"
+    },
     "sakana": {
       "title": "サカナ~",
       "illustration": "イラスト",

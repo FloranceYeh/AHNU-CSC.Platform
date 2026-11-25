@@ -326,13 +326,17 @@ export const routes = {
           path: "/",
           component: lazy(() => import("./magic/index")),
         },
-        {
-          path: "/sakana",
-          component: lazy(() => import("./magic/sakana/index")),
-        },
+        // {
+        //   path: "/sakana",
+        //   component: lazy(() => import("./magic/sakana/index")),
+        // },
         {
           path: "/about",
           component: lazy(() => import("./magic/about/index")),
+        },
+        {
+          path: "/staff",
+          component: lazy(() => import("./magic/staff/index")),
         },
       ],
     },
