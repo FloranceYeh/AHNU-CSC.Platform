@@ -10,6 +10,7 @@ import Link from "@widgets/link";
 import Popover from "@widgets/popover";
 import { createEffect, type JSX, onMount, Show } from "solid-js";
 import PlatformTitle from "./_blocks/platform-title";
+
 // import Calendar from "./calendar";
 
 function FooterCardLink(props: { href: string; label: string; children: JSX.Element }) {

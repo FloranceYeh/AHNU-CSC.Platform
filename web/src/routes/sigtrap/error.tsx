@@ -1,6 +1,6 @@
 // import xdsecMascotCrying from "@assets/imgs/xdsec-mascot-crying.webp";
 // import xdsecMascotUnsee from "@assets/imgs/xdsec-mascot-unsee.webp";
-import errAHNU from "@assets/imgs/error.png"
+import errAHNU from "@assets/imgs/error.png";
 import teapot from "@assets/imgs/teapot.svg";
 import { t } from "@storage/theme";
 import { Match, Show, Switch } from "solid-js";
