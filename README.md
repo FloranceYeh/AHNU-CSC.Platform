@@ -1,29 +1,19 @@
 <div align="center">
   <a href="https://ret.sh.cn/">
+    <img src="./arts/ahnu-csc-logo.svg" alt="Ret2Shell" style="width: 100%" />
+  </a>
+  <hr>
+  <p><em>Based on Ret2Shell</em></p>
+  <a href="https://ret.sh.cn/">
     <img src="./arts/logo-full.svg" alt="Ret2Shell" style="width: 100%" />
   </a>
-  <p><em>A feature-riches CTF challenge platform</em></p>
-
-[![MSRV 1.98.1+](https://img.shields.io/badge/MSRV-1.98.1+-blue)](https://releases.rs/docs/1.98.1/)
-[![Solid.js 1.9+](https://img.shields.io/badge/Solid.js-1.9+-orange)](https://www.solidjs.com/)
-
 </div>
-
-## 📣 Support
-
-QQ Group: [1104642385](https://qm.qq.com/q/u0BUcpU6l2)
-
-Telegram: [t.me/ret2shell](https://t.me/ret2shell)
-
-## Preview
-
-![Training Ground](arts/training-dark-en-us.webp)
 
 ## 🚀 Deployment
 
-Ret2Shell is single binary with requirements of `redis/valkey 8+`, `postgres 18+`, `nats 2+` and optional `VictoriaLog` and `registry`.
+AHNU:CSC.Platform is single binary with requirements of `redis/valkey 8+`, `postgres 18+`, `nats 2+` and optional `VictoriaLog` and `registry`.
 
-All the components could be deploy anywhere, so you can deploy ret2shell as you like.
+All the components could be deploy anywhere, so you can deploy AHNU:CSC.Platform as you like.
 
 ## 🛠️ Development
 
@@ -142,15 +132,11 @@ You can also build the docker image:
 
 ## 🤝 Contributing
 
-We welcome and appreciate your contributions to Ret2Shell! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to submit changes, commit conventions, pull request practices, and code style expectations.
-
-If you have interesting derivative projects or extensions related to Ret2Shell, feel free to share them in [Discussions](https://github.com/ret2shell/ret2shell/discussions/categories/show-and-tell).
-
-For general discussions and questions about Ret2Shell, you can also post in [Discussions](https://github.com/ret2shell/ret2shell/discussions).
+We welcome and appreciate your contributions to AHNU:CSC.Platform! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to submit changes, commit conventions, pull request practices, and code style expectations.
 
 ## 📄 License
 
-Ret2Shell is distributed under a GPL-3.0-derived custom copyleft license that incorporates GPL-3.0 in Appendix A and adds user-facing monetization restrictions. See [LICENSE](LICENSE) for the binding license text and [COMMERCIAL_POLICY.md](COMMERCIAL_POLICY.md) for plain-language guidance.
+Following the source project, Ret2Shell is licensed under a GPL-3.0-derived custom copyleft license that incorporates GPL-3.0 in Appendix A and adds user-facing monetization restrictions. See [LICENSE](LICENSE) for the binding license text and [COMMERCIAL_POLICY.md](COMMERCIAL_POLICY.md) for plain-language guidance.
 
 Ret2Shell is licensed under:
 
