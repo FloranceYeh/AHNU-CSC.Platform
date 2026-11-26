@@ -2117,6 +2117,25 @@
       "title": "關於"
     },
     "staff": {
+      "saveUnconfirmed": "伺服器未確認儲存賽事團隊。編輯內容已保留，請檢查後端版本後重試。",
+      "empty": "尚未設定賽事團隊。",
+      "editor": {
+        "logoSelect": "選擇 Logo",
+        "customLogo": "自訂 Logo",
+        "editionTitle": "屆次標題",
+        "logo": "Logo（內建名稱、連結或媒體雜湊）",
+        "groupName": "小組名稱",
+        "fullWidth": "獨佔一列",
+        "memberName": "成員姓名",
+        "memberLink": "成員連結（選填）",
+        "makeLeader": "設為組長",
+        "addMember": "新增成員",
+        "removeGroup": "刪除小組",
+        "addGroup": "新增小組",
+        "removeEdition": "刪除屆次",
+        "addEdition": "新增屆次",
+        "invalid": "請填寫屆次標題、小組名稱與成員姓名，並檢查 Logo 和連結格式。"
+      },
       "groupLeader": "組長",
       "coordination": "總協調組",
       "title": "賽事團隊",

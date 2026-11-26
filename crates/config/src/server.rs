@@ -28,6 +28,30 @@ pub struct RateLimitConfig {
   pub burst_restore_rate: Option<u64>, // in milliseconds
 }
 
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq)]
+pub struct StaffMember {
+  pub name: String,
+  pub url: Option<String>,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq)]
+pub struct StaffGroup {
+  pub name: String,
+  pub logo: Option<String>,
+  #[serde(default)]
+  pub full_width: bool,
+  #[serde(default)]
+  pub members: Vec<StaffMember>,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq)]
+pub struct StaffEdition {
+  pub title: String,
+  pub logo: Option<String>,
+  #[serde(default)]
+  pub groups: Vec<StaffGroup>,
+}
+
 #[derive(Serialize, Deserialize, Clone, Debug, Default, FromJsonQueryResult, PartialEq, Eq)]
 pub struct Config {
   /// The host address of the server.
@@ -56,6 +80,7 @@ pub struct Config {
   pub hide_maker: Option<bool>,
   pub highlight_banner: Option<String>,
   pub zen_game: Option<i64>,
+  pub staff_editions: Option<Vec<StaffEdition>>,
 }
 
 impl Config {
@@ -84,7 +109,7 @@ impl Config {
   ///   record: None,
   ///   hide_maker: None,
   ///   highlight_banner: None,
-  ///   zen_game: None,
+  ///   ..Default::default()
   /// };
   ///
   /// assert_eq!(config.external_origin(), "https://example.com");
@@ -117,6 +142,7 @@ impl Config {
       // api_rate_limit: self.api_rate_limit,
       rate_limit: None,
       zen_game: self.zen_game,
+      staff_editions: self.staff_editions.clone(),
     }
   }
 }
@@ -144,6 +170,7 @@ impl Merge for Option<Config> {
         // api_rate_limit: b.api_rate_limit.or(a.api_rate_limit),
         rate_limit: a.rate_limit,
         zen_game: b.zen_game.or(a.zen_game),
+        staff_editions: b.staff_editions.or(a.staff_editions),
       }),
       (Some(a), None) => Some(a),
       (None, Some(b)) => Some(b),
@@ -182,6 +209,7 @@ mod tests {
       hide_maker: Some(false),
       highlight_banner: Some("Welcome banner".to_owned()),
       zen_game: Some(7),
+      staff_editions: None,
     }
   }
 
@@ -217,6 +245,28 @@ mod tests {
   }
 
   #[test]
+  fn staff_settings_are_public_and_an_empty_database_roster_overrides_the_file() {
+    let mut base = server_config();
+    base.staff_editions = Some(
+      serde_json::from_value(serde_json::json!([{
+        "title": "2nd",
+        "groups": [{ "name": "Coordination", "members": [{ "name": "Lead" }] }]
+      }]))
+      .unwrap(),
+    );
+
+    assert_eq!(base.desensitize().staff_editions, base.staff_editions);
+    let cleared = Config {
+      staff_editions: Some(vec![]),
+      ..server_config()
+    };
+    assert_eq!(
+      Some(base).merge(Some(cleared)).unwrap().staff_editions,
+      Some(vec![])
+    );
+  }
+
+  #[test]
   fn merge_keeps_base_connection_settings_and_falls_back_for_optional_metadata() {
     let base = Some(server_config());
     let overlay = Some(Config {
@@ -243,6 +293,7 @@ mod tests {
       hide_maker: Some(true),
       highlight_banner: None,
       zen_game: None,
+      staff_editions: None,
     });
 
     let merged = base.merge(overlay).unwrap();

@@ -2117,6 +2117,25 @@
       "title": "关于"
     },
     "staff": {
+      "saveUnconfirmed": "服务端未确认保存赛事团队。编辑内容已保留，请检查后端版本后重试。",
+      "empty": "暂未配置赛事团队。",
+      "editor": {
+        "logoSelect": "选择 Logo",
+        "customLogo": "自定义 Logo",
+        "editionTitle": "届次标题",
+        "logo": "Logo（内置名称、链接或媒体哈希）",
+        "groupName": "小组名称",
+        "fullWidth": "独占一行",
+        "memberName": "成员姓名",
+        "memberLink": "成员链接（选填）",
+        "makeLeader": "设为组长",
+        "addMember": "添加成员",
+        "removeGroup": "删除小组",
+        "addGroup": "添加小组",
+        "removeEdition": "删除届次",
+        "addEdition": "添加届次",
+        "invalid": "请填写届次标题、小组名称和成员姓名，并检查 Logo 与链接格式。"
+      },
       "groupLeader": "组长",
       "coordination": "总协调组",
       "title": "赛事团队",

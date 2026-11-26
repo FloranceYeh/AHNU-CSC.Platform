@@ -1,4 +1,4 @@
-import type { AuthConfig, Config, ServerConfig } from "@models/config";
+import type { AuthConfig, Config, ServerConfig, StaffEdition } from "@models/config";
 import type { HostType } from "@models/game";
 import type { Institute } from "@models/institute";
 import { luxonReplacer } from "@models/utils";
@@ -267,8 +267,32 @@ export function usePlatformConfig({
   );
 }
 
+function normalizeStaffEditions(editions: StaffEdition[]) {
+  return editions.map(({ title, logo, groups }) => ({
+    title,
+    logo: logo ?? null,
+    groups: groups.map(({ name, logo, full_width, members }) => ({
+      name,
+      logo: logo ?? null,
+      full_width,
+      members: members.map(({ name, url }) => ({ name, url: url ?? null })),
+    })),
+  }));
+}
+
 export async function updatePlatformConfig(config: Config) {
-  return await api.patch(`${api_root}/platform/config`, { json: config }).json<Config>();
+  const saved = await api.patch(`${api_root}/platform/config`, { json: config }).json<Config>();
+  const submittedStaff = config.server?.staff_editions;
+  if (submittedStaff != null) {
+    const savedStaff = saved.server?.staff_editions;
+    if (
+      !Array.isArray(savedStaff) ||
+      JSON.stringify(normalizeStaffEditions(savedStaff)) !== JSON.stringify(normalizeStaffEditions(submittedStaff))
+    ) {
+      throw new Error(t("magic.staff.saveUnconfirmed"));
+    }
+  }
+  return saved;
 }
 
 export function useUpdatePlatformConfigMutation(

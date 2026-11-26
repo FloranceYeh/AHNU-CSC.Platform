@@ -85,6 +85,24 @@ export type QueueConfig = {
   ping_interval: number | null;
   tls: boolean | null;
 };
+export type StaffMember = {
+  name: string;
+  url?: string | null;
+};
+
+export type StaffGroup = {
+  name: string;
+  logo?: string | null;
+  full_width: boolean;
+  members: StaffMember[];
+};
+
+export type StaffEdition = {
+  title: string;
+  logo?: string | null;
+  groups: StaffGroup[];
+};
+
 export type ServerConfig = {
   host: string;
   port: number;
@@ -101,6 +119,7 @@ export type ServerConfig = {
   hide_maker: boolean | null;
   highlight_banner: string | null;
   zen_game: number | null;
+  staff_editions?: StaffEdition[] | null;
 };
 export type Config = {
   auditor: AuditorConfig;

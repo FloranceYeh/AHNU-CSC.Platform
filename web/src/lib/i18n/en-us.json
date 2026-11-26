@@ -2117,6 +2117,25 @@
       "title": "About"
     },
     "staff": {
+      "saveUnconfirmed": "The server did not confirm saving the event teams. Your edits are still here. Check the backend version and try again.",
+      "empty": "No event teams have been configured.",
+      "editor": {
+        "logoSelect": "Choose logo",
+        "customLogo": "Custom logo",
+        "editionTitle": "Edition title",
+        "logo": "Logo (built-in name, URL, or media hash)",
+        "groupName": "Group name",
+        "fullWidth": "Full-width row",
+        "memberName": "Member name",
+        "memberLink": "Member link (optional)",
+        "makeLeader": "Make team lead",
+        "addMember": "Add member",
+        "removeGroup": "Remove group",
+        "addGroup": "Add group",
+        "removeEdition": "Remove edition",
+        "addEdition": "Add edition",
+        "invalid": "Enter a title for every edition and a name for every group and member. Check logo values and links."
+      },
       "groupLeader": "Team lead",
       "coordination": "Overall coordination team",
       "title": "Event team",

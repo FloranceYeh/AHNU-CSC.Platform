@@ -1,7 +1,9 @@
+import { inflyClient } from "@api";
 import { useGames } from "@api/game";
 import { usePlatformConfig, usePlatformInfo, useUpdatePlatformConfigMutation } from "@api/platform";
 import LogoAnimate from "@assets/animates/logo-animate";
-import type { Config } from "@models/config";
+import { staffLink, staffLogo } from "@lib/utils/staff";
+import type { Config, StaffEdition } from "@models/config";
 import { createForm, setValues } from "@modular-forms/solid";
 import { Title } from "@storage/header";
 import { t } from "@storage/theme";
@@ -9,7 +11,8 @@ import Button from "@widgets/button";
 import Input from "@widgets/input";
 import Select from "@widgets/select";
 import { DateTime } from "luxon";
-import { createEffect, untrack } from "solid-js";
+import { createEffect, createSignal, Show, untrack } from "solid-js";
+import StaffEditor from "./staff-editor";
 
 type PlatformConfigForm = {
   name?: string;
@@ -26,6 +29,20 @@ type PlatformConfigForm = {
 export default function () {
   const config = usePlatformConfig();
   const info = usePlatformInfo();
+  const [staffDraft, setStaffDraft] = createSignal<StaffEdition[]>();
+  const staffEditions = () => staffDraft() ?? config.data?.server.staff_editions ?? [];
+  const invalidStaff = () =>
+    staffEditions().some(
+      (edition) =>
+        !edition.title.trim() ||
+        (!!edition.logo?.trim() && !staffLogo(edition.logo)) ||
+        edition.groups.some(
+          (group) =>
+            !group.name.trim() ||
+            (!!group.logo?.trim() && !staffLogo(group.logo)) ||
+            group.members.some((member) => !member.name.trim() || (!!member.url?.trim() && !staffLink(member.url)))
+        )
+    );
   const [form, { Form, Field }] = createForm<PlatformConfigForm>({
     initialValues: {
       ...JSON.parse(JSON.stringify(config.data?.server || {})),
@@ -35,12 +52,14 @@ export default function () {
     weight: () => 3,
   });
   const mutation = useUpdatePlatformConfigMutation({
-    onSuccess: () => {
-      config.refetch();
+    onSuccess: (saved) => {
+      inflyClient.setQueryData(["platform", "config"], saved);
+      setStaffDraft(undefined);
       info.refetch();
     },
   });
   async function onSubmit(result: PlatformConfigForm) {
+    if (!config.data || invalidStaff() || mutation.isPending) return;
     const mergedConfig = {
       ...config.data,
       server: {
@@ -54,6 +73,7 @@ export default function () {
         hide_maker: false,
         highlight_banner: result.highlight_banner,
         zen_game: result.zen_game,
+        staff_editions: staffDraft() ?? config.data.server.staff_editions,
       },
     } as Config;
     mutation.mutate(mergedConfig);
@@ -193,12 +213,22 @@ export default function () {
               />
             )}
           </Field>
+          <StaffEditor
+            editions={staffEditions()}
+            onChange={setStaffDraft}
+            disabled={!config.data || mutation.isPending || config.isFetching}
+          />
+          <Show when={invalidStaff()}>
+            <p class="text-sm text-error" role="status">
+              {t("magic.staff.editor.invalid")}
+            </p>
+          </Show>
           <Button
             type="submit"
             level="primary"
             class="mt-4!"
             loading={config.isLoading || mutation.isPending}
-            disabled={config.isLoading || mutation.isPending}
+            disabled={!config.data || mutation.isPending || config.isFetching || invalidStaff()}
           >
             {t("general.actions.save.title")}
           </Button>

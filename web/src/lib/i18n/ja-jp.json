@@ -2117,6 +2117,25 @@
       "title": "について"
     },
     "staff": {
+      "saveUnconfirmed": "サーバーが大会運営チームの保存を確認できませんでした。編集内容は保持されています。バックエンドのバージョンを確認して再試行してください。",
+      "empty": "大会運営チームは未設定です。",
+      "editor": {
+        "logoSelect": "ロゴを選択",
+        "customLogo": "カスタムロゴ",
+        "editionTitle": "大会回のタイトル",
+        "logo": "ロゴ（組み込み名、URL、またはメディアのハッシュ）",
+        "groupName": "グループ名",
+        "fullWidth": "1 行全体に表示",
+        "memberName": "メンバー名",
+        "memberLink": "メンバーのリンク（任意）",
+        "makeLeader": "リーダーに設定",
+        "addMember": "メンバーを追加",
+        "removeGroup": "グループを削除",
+        "addGroup": "グループを追加",
+        "removeEdition": "大会回を削除",
+        "addEdition": "大会回を追加",
+        "invalid": "大会回のタイトル、グループ名、メンバー名を入力し、ロゴとリンクの形式を確認してください。"
+      },
       "groupLeader": "チームリーダー",
       "coordination": "総合調整チーム",
       "title": "大会運営チーム",

@@ -54,10 +54,9 @@ pub fn router(_state: &GlobalState) -> Router<GlobalState> {
     .route("/license", get(get_license))
 }
 
-async fn get_config(
-  State(_state): State<GlobalState>, Extension(config): Extension<config::Model>,
-) -> Result<impl IntoResponse, ResponseError> {
-  Ok(Json(config))
+async fn get_config(State(state): State<GlobalState>) -> Result<impl IntoResponse, ResponseError> {
+  let config = config::get(&state.db.conn).await?.unwrap_or_default();
+  Ok(Json(config.merge(state.config.clone())))
 }
 
 async fn update_config(
